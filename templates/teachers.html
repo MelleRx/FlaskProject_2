@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block container %}
+<main class="container mt-3 mb-5">
+    <section>
+        <h1 class="h1 text-center mx-auto mt-4 py-5"><strong>Найдите идеального <br>репетитора английского,
+            <br>занимайтесь онлайн</strong></h1>
+        <div class="text-center mb-5">
+            <div class="btn-group mx-auto mb-0" role="group" aria-label="Basic example">
+                {% for k, v in goals.items() %}
+                <a href="/goals/{{k}}" class="btn btn-outline-secondary">{{v}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <h2 class="h5 text-center mb-5">Наши преподаватели</h2>
+        {% for i in range (12) %}
+        <div class="row">
+            <div class="col-12 col-lg-10 offset-lg-1 m-auto">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3"><img src={{teachers[i]["picture"]}} class="img-fluid" alt=""></div>
+                            <div class="col-9">
+                                <p class="float-right"><b>Рейтинг:</b>
+                                    <font color="red"><u>{{teachers[i]["rating"]}}</u></font> <b>Ставка:</b>
+                                    <font color="red"><u>{{teachers[i]["price"]}} / час</u></font></p>
+                                <h2 class="h4">{{teachers[i]["name"]}}</h2>
+                                <p>{{teachers[i]["about"]|truncate(100)}}</p>
+                                <a href="/profile/{{teachers[i]['id']}}" class="btn btn-outline-primary btn-sm mr-3 mb-2">Показать
+                                    информаци и расписание</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <h2 class="text-center mt-5 mb-3">Не нашли своего репетитора?</h2>
+        <p class="text-center mb-4">Расскажите, кто вам нужен и мы подберем его сами</p>
+        <div class="text-center pb-5">
+            <a href="/request" class="btn btn-primary">Заказать подбор</a>
+        </div>
+    </section>
+</main>
+{% endblock %}
