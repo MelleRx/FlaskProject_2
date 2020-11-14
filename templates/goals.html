@@ -12,21 +12,22 @@
     {% endif %}
 
     {% for i in range(0, 12) %}
-        {% for j in teachers[i]["goals"] %}
+    {% set sorted = teachers|sort(attribute="rating", reverse=True) %}
+        {% for j in sorted[i]["goals"] %}
             {% if goal == j %}
     <div class="row">
         <div class="col-12 col-lg-10 offset-lg-1 m-auto">
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-3"><img src={{teachers[i]["picture"]}} class="img-fluid" alt=""></div>
+                        <div class="col-3"><img src={{sorted[i]["picture"]}} class="img-fluid" alt=""></div>
                             <div class="col-9">
                                 <p class="float-right"><b>Рейтинг:</b>
-                                    <font color="red"><u>{{teachers[i]["rating"]}}</u></font> <b>Ставка:</b>
-                                    <font color="red"><u>{{teachers[i]["price"]}} / час</u></font></p>
-                                <h2 class="h4">{{teachers[i]["name"]}}</h2>
-                                <p>{{teachers[i]["about"]|truncate(100)}}</p>
-                                <a href="/profile/{{teachers[i]['id']}}" class="btn btn-outline-primary btn-sm mr-3 mb-2">Показать
+                                    <font color="red"><u>{{sorted[i]["rating"]}}</u></font> <b>Ставка:</b>
+                                    <font color="red"><u>{{sorted[i]["price"]}} / час</u></font></p>
+                                <h2 class="h4">{{sorted[i]["name"]}}</h2>
+                                <p>{{sorted[i]["about"]|truncate(100)}}</p>
+                                <a href="/profile/{{sorted[i]['id']}}" class="btn btn-outline-primary btn-sm mr-3 mb-2">Показать
                                     информаци и расписание</a>
                         </div>
                     </div>
