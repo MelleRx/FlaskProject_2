@@ -9,7 +9,9 @@
                     <section class="teacher=info">
                         <h1 class="h2">{{teachers[id]["name"]}}</h1>
                         <p>{% for i in teachers[id]["goals"] %}
-                            <span class="badge badge-secondary mr-2">{{i}} </span><b>Рейтинг:</b>
+                            <span class="badge badge-secondary mr-2">{{i}} </span>
+                            {% endfor %}
+                            <b>Рейтинг:</b>
                             <font color="red"><u>{{teachers[id]["rating"]}}</u></font> <b>Ставка:</b>
                             <font color="red"><u>{{teachers[id]["price"]}}р / час</u></font></p><p>{{teachers[id]["about"]}}</p>
                     </section>
