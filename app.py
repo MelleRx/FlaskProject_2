@@ -28,8 +28,14 @@ class RequestForm(FlaskForm):
     submit = SubmitField("Найдите мне преподавателя")
 
 
+dict_to_json = {"teachers": data.teachers,
+                "goals": data.goals}
+
 with open("data.json", "w") as f:
-    json.dump(data.teachers, f)
+    json.dump(dict_to_json, f)
+
+with open("data.json", "r") as f:
+    data_json = json.loads(f.read())
 
 app = Flask(__name__)
 app.secret_key = 'kukulidi'
@@ -37,25 +43,25 @@ app.secret_key = 'kukulidi'
 
 @app.route("/")
 def render_main():
-    random = rt(data.teachers)
-    return render_template("index.html", teachers=data.teachers, goals=data.goals, random=random)
+    random = rt(data_json["teachers"])
+    return render_template("index.html", teachers=data_json["teachers"], goals=data_json["goals"], random=random)
 
 
 @app.route("/goals/<goal>/")
 def render_goals(goal):
-    return render_template("goals.html", teachers=data.teachers, goal=goal)
+    return render_template("goals.html", teachers=data_json["teachers"], goal=goal)
 
 
 @app.route("/teachers/")
 def render_teachers():
-    return render_template("teachers.html", teachers=data.teachers, goals=data.goals)
+    return render_template("teachers.html", teachers=data_json["teachers"], goals=data_json["goals"])
 
 
 @app.route("/profile/<id_teacher>/")
 def render_profiles(id_teacher):
     id_t = int(id_teacher)
-    time = ft(data.teachers, id_t)
-    return render_template("profile.html", teachers=data.teachers, id=id_t, time=time)
+    time = ft(data_json["teachers"], id_t)
+    return render_template("profile.html", teachers=data_json["teachers"], id=id_t, time=time)
 
 
 @app.route("/request/")
@@ -85,7 +91,7 @@ def render_request_done():
 def render_booking(id_teacher, day, time):
     form = BookingForm()
     id_t = int(id_teacher)
-    return render_template("booking.html", teachers=data.teachers, id=id_t, day=day, time=time, form=form)
+    return render_template("booking.html", teachers=data_json["teachers"], id=id_t, day=day, time=time, form=form)
 
 
 @app.route("/booking_done/<day>/<time>/", methods=['POST'])
